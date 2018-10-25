@@ -1,10 +1,24 @@
-//your variable declarations here
+Spaceship bob = new Spaceship();
 public void setup() 
 {
-  //your code here
+  size(800, 800);
 }
 public void draw() 
 {
-  //your code here
+  bob.show();
 }
-
+public void keyPressed()
+{
+  if (key == 'a')
+  {
+    bob.myPointDirection = bob.myPointDirection + 0.5;
+  }
+  if (key == 'd')
+  {
+    bob.myPointDirection = bob.myPointDirection - 0.5;
+  }
+  if (key == 'w')
+  {
+    bob.myPointDirection = bob.myPointDirection - 0.5;
+  }
+}
