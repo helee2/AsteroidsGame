@@ -1,23 +1,24 @@
 Spaceship bob = new Spaceship();
-Asteroid[] john;
+ArrayList<Asteroid> john;
 Star[] sue;
+Asteroid joe;
+int numAsteroids = 20;
 boolean keyW = false;
 boolean keyA = false;
 boolean keyD = false;
-boolean keyE = false;
 public void setup() 
 {
   size(1380, 1050);
   frameRate(120);
   sue = new Star[100];
-  john = new Asteroid[20];
-  for(int i = 0; i < sue.length; i++)
+  john = new ArrayList<Asteroid>();
+  for (int i = 0; i < sue.length; i++)
   {
     sue[i] = new Star();
   }
-  for(int i = 0; i < john.length; i++)
+  for (int i = 0; i < 20; i++)
   {
-    john[i] = new Asteroid();
+    john.add(new Asteroid());
   }
 }
 public void draw() 
@@ -25,12 +26,17 @@ public void draw()
   background(0);
   bob.move();
   bob.show();
-  for(int i = 0; i < john.length; i++)
+  for (int i = 0; i < numAsteroids; i++)
   {
-    john[i].move();
-    john[i].show();
+    john.get(i).move();
+    john.get(i).show();
+    if (dist(john.get(i).getX(),john.get(i).getY(),bob.getX(),bob.getY()) < 20)
+    {
+      john.remove(i);
+      numAsteroids = numAsteroids - 1;
+    }
   }
-  for(int i = 0; i < sue.length; i++)
+  for (int i = 0; i < sue.length; i++)
   {
     sue[i].show();
   }
@@ -40,7 +46,22 @@ public void draw()
     bob.turn(-2);
   if (keyD == true)
     bob.turn(2);
-  if (keyE == true)
+}
+public void keyPressed()
+{
+  if (key == 'w')
+
+    keyW = true;
+
+  if (key == 'a')
+
+    keyA = true;
+
+  if (key == 'd')
+
+    keyD = true;
+
+  if (key == 'e')
   {
     bob.setX((int)(Math.random() * 1380));
     bob.setY((int)(Math.random() * 1050));
@@ -49,29 +70,11 @@ public void draw()
     bob.setPointDirection((int)(Math.random() * 360));
   }
 }
-public void keyPressed()
-{
-  if (key == 'w')
-
-    keyW = true;
-    
-  if (key == 'a')
-  
-    keyA = true;
-    
-  if (key == 'd')
-
-    keyD = true;
-  
-  if (key == 'e')
-
-    keyE = true;
-}
 
 public void keyReleased()
 {
   if (key == 'w')
-  
+
     keyW = false;
 
   if (key == 'a')
@@ -79,10 +82,6 @@ public void keyReleased()
     keyA = false;
 
   if (key == 'd')
-  
+
     keyD = false;
-    
-  if (key == 'e')
-  
-    keyE = false;
 }
