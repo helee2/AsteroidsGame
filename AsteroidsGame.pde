@@ -2,21 +2,25 @@ Spaceship bob = new Spaceship();
 ArrayList<Asteroid> john;
 Star[] sue;
 Asteroid joe;
-int numAsteroids = 20;
+ArrayList<Bullet> bill;
+int numAsteroids = 50;
 boolean keyW = false;
 boolean keyA = false;
 boolean keyD = false;
+boolean keySpace = false;
+int shootTime = 0;
 public void setup() 
 {
   size(1380, 1050);
   frameRate(120);
   sue = new Star[100];
   john = new ArrayList<Asteroid>();
+  bill = new ArrayList<Bullet>();
   for (int i = 0; i < sue.length; i++)
   {
     sue[i] = new Star();
   }
-  for (int i = 0; i < 20; i++)
+  for (int i = 0; i < numAsteroids; i++)
   {
     john.add(new Asteroid());
   }
@@ -26,19 +30,32 @@ public void draw()
   background(0);
   bob.move();
   bob.show();
-  for (int i = 0; i < numAsteroids; i++)
+  for (int i = 0; i < bill.size(); i++)
   {
-    john.get(i).move();
-    john.get(i).show();
-    if (dist(john.get(i).getX(),john.get(i).getY(),bob.getX(),bob.getY()) < 20)
-    {
-      john.remove(i);
-      numAsteroids = numAsteroids - 1;
-    }
+    bill.get(i).move();
+    bill.get(i).show();
   }
   for (int i = 0; i < sue.length; i++)
   {
     sue[i].show();
+  }
+  for (int i = 0; i < numAsteroids; i++)
+  {
+    john.get(i).move();
+    john.get(i).show();
+    if (dist(john.get(i).getX(), john.get(i).getY(), bob.getX(), bob.getY()) < 20)
+      noLoop();
+    for (int j = 0; j < bill.size(); j++)
+    {
+      if (dist(john.get(i).getX(), john.get(i).getY(), bill.get(j).getX(), bill.get(j).getY()) < 20)
+      {
+        john.remove(i);
+        bill.remove(j);
+        numAsteroids = numAsteroids - 1;
+        john.add(new Asteroid());
+        break;
+      }
+    }
   }
   if (keyW == true)
     bob.accelerate(0.025);
@@ -69,6 +86,11 @@ public void keyPressed()
     bob.setDirectionY(0);
     bob.setPointDirection((int)(Math.random() * 360));
   }
+  while (keyCode == 32 && shootTime < 1)
+  {
+    bill.add(new Bullet(bob));
+    shootTime++;  
+  }
 }
 
 public void keyReleased()
@@ -84,4 +106,8 @@ public void keyReleased()
   if (key == 'd')
 
     keyD = false;
+    
+  if (keyCode == 32)
+    
+    shootTime = 0;
 }
