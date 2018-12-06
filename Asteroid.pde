@@ -1,7 +1,7 @@
 class Asteroid extends Floater
 {
   int rotateSpeed;
-  public Asteroid()
+  public Asteroid(Spaceship ship)
   {
     corners = 7;
     int[] xS = {-10,-16,-14,6,14,4,-2};
@@ -15,6 +15,9 @@ class Asteroid extends Floater
     myDirectionY = Math.random() - 0.5;
     myPointDirection = (Math.random() * 360);
     rotateSpeed = (int)(Math.random() * 11) - 5;
+    if (dist((float)myCenterX, (float)myCenterY, ship.getX(), ship.getY()) < 30)
+      myCenterX = myCenterX + 50;
+      myCenterY = myCenterY + 50;
   }
   public void setX(int x)
   {

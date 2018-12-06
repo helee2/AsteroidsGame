@@ -7,8 +7,8 @@ int numAsteroids = 50;
 boolean keyW = false;
 boolean keyA = false;
 boolean keyD = false;
-boolean keySpace = false;
 int shootTime = 0;
+int pointCounter = 0;
 public void setup() 
 {
   size(1380, 1050);
@@ -22,8 +22,10 @@ public void setup()
   }
   for (int i = 0; i < numAsteroids; i++)
   {
-    john.add(new Asteroid());
+    john.add(new Asteroid(bob));
   }
+  textAlign(CENTER);
+  textSize(32);
 }
 public void draw() 
 {
@@ -51,8 +53,8 @@ public void draw()
       {
         john.remove(i);
         bill.remove(j);
-        numAsteroids = numAsteroids - 1;
-        john.add(new Asteroid());
+        john.add(new Asteroid(bob));
+        pointCounter += 10;
         break;
       }
     }
@@ -63,6 +65,12 @@ public void draw()
     bob.turn(-2);
   if (keyD == true)
     bob.turn(2);
+  pointCounter();
+}
+public void pointCounter()
+{
+  fill(255); 
+  text("Points: " + pointCounter, 100, 990);
 }
 public void keyPressed()
 {
@@ -89,7 +97,7 @@ public void keyPressed()
   while (keyCode == 32 && shootTime < 1)
   {
     bill.add(new Bullet(bob));
-    shootTime++;  
+    shootTime++;
   }
 }
 
@@ -106,8 +114,8 @@ public void keyReleased()
   if (key == 'd')
 
     keyD = false;
-    
+
   if (keyCode == 32)
-    
+
     shootTime = 0;
 }
