@@ -8,8 +8,8 @@ boolean keyW = false;
 boolean keyA = false;
 boolean keyD = false;
 int shootTime = 0;
-int pointCounter = 0;
-public void setup() 
+int points = 0;
+public void setup()
 {
   size(1380, 1050);
   frameRate(120);
@@ -54,7 +54,7 @@ public void draw()
         john.remove(i);
         bill.remove(j);
         john.add(new Asteroid(bob));
-        pointCounter += 10;
+        points += 10;
         break;
       }
     }
@@ -70,7 +70,7 @@ public void draw()
 public void pointCounter()
 {
   fill(255); 
-  text("Points: " + pointCounter, 100, 990);
+  text("Points: " + points, 100, 990);
 }
 public void keyPressed()
 {
