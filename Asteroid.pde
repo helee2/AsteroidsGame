@@ -6,6 +6,14 @@ class Asteroid extends Floater
     corners = 7;
     int[] xS = {-10,-16,-14,6,14,4,-2};
     int[] yS = {8,0,-2,-10,4,16,8};
+    for (int i = 0; i < xS.length; i++)
+    {
+      xS[i] += (int)(Math.random() * 7) - 3;
+    }
+    for (int i = 0; i < yS.length; i++)
+    {
+      yS[i] += (int)(Math.random() * 7) - 3;
+    }
     xCorners = xS;
     yCorners = yS;
     myColor = 130;

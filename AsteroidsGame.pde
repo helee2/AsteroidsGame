@@ -1,4 +1,5 @@
 Spaceship bob = new Spaceship();
+AI jack = new AI();
 ArrayList<Asteroid> john;
 Star[] sue;
 Asteroid joe;
@@ -32,6 +33,8 @@ public void draw()
   background(0);
   bob.move();
   bob.show();
+  jack.move();
+  jack.show();
   for (int i = 0; i < bill.size(); i++)
   {
     bill.get(i).move();
